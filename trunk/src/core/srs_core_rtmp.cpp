@@ -619,6 +619,7 @@ int SrsRtmp::response_connect_app(SrsRequest *req, const char* server_ip)
 	SrsCommonMessage* msg = new SrsCommonMessage();
 	SrsConnectAppResPacket* pkt = new SrsConnectAppResPacket();
 	
+	pkt->props = new SrsAmf0Object();
 	pkt->props->set("fmsVer", new SrsAmf0String("FMS/"RTMP_SIG_FMS_VER));
 	pkt->props->set("capabilities", new SrsAmf0Number(127));
 	pkt->props->set("mode", new SrsAmf0Number(1));
@@ -662,6 +663,8 @@ void SrsRtmp::response_connect_reject(SrsRequest *req, const char* desc)
 
     SrsConnectAppResPacket* pkt = new SrsConnectAppResPacket();
     pkt->command_name = "_error";
+    
+    pkt->props = new SrsAmf0Object();
     pkt->props->set(StatusLevel, new SrsAmf0String(StatusLevelError));
     pkt->props->set(StatusCode, new SrsAmf0String(StatusCodeConnectRejected));
     pkt->props->set(StatusDescription, new SrsAmf0String(desc));
