@@ -294,6 +294,8 @@ int SrsForwarder::forward()
 			SrsCommonMessage* msg = NULL;
 			ret = client->recv_message(&msg);
 			
+			SrsAutoFree(SrsCommonMessage, msg, false);
+			
 			srs_verbose("play loop recv message. ret=%d", ret);
 			if (ret != ERROR_SUCCESS && ret != ERROR_SOCKET_TIMEOUT) {
 				srs_error("recv server control message failed. ret=%d", ret);
